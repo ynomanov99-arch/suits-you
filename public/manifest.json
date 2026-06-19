@@ -1,0 +1,39 @@
+{
+  "name": "SUITS YOU — Premium Men's Fashion",
+  "short_name": "SUITS YOU",
+  "description": "Toshkentning eng zamonaviy erkaklar kiyim do'koni",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#c9a84c",
+  "orientation": "portrait-primary",
+  "lang": "uz",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["shopping", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Kolleksiya",
+      "url": "/#products",
+      "description": "Mahsulotlarni ko'rish"
+    },
+    {
+      "name": "Buyurtma",
+      "url": "/#order",
+      "description": "Buyurtma berish"
+    }
+  ]
+}

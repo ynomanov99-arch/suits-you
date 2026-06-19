@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUITS YOU — Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">SUITS <span>YOU</span></div>
+    <div class="login-subtitle">Admin Boshqaruv Paneli</div>
+    <div class="login-form">
+      <div class="input-group">
+        <label>Foydalanuvchi nomi</label>
+        <input type="text" id="loginUser" placeholder="admin" autocomplete="off">
+      </div>
+      <div class="input-group">
+        <label>Parol</label>
+        <input type="password" id="loginPass" placeholder="••••••••">
+      </div>
+      <div class="login-error" id="loginError">Noto'g'ri ma'lumotlar!</div>
+      <button class="login-btn" id="loginBtn" onclick="doLogin()">Kirish →</button>
+    </div>
+    <div class="login-hint">Kirish: <b>admin</b> / Parol: <b>admin123</b></div>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div class="admin-wrap" id="adminWrap" style="display:none;">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">SUITS <span>YOU</span></div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+      <a class="nav-item" data-page="products" onclick="showPage('products')">
+        <span class="nav-icon">👔</span> Mahsulotlar
+      </a>
+      <a class="nav-item" data-page="orders" onclick="showPage('orders')">
+        <span class="nav-icon">📋</span> Buyurtmalar
+      </a>
+      <a class="nav-item" data-page="cart" onclick="showPage('cart')">
+        <span class="nav-icon">🛒</span> Savat
+      </a>
+    </nav>
+    <button class="logout-btn" onclick="doLogout()">🚪 Chiqish</button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      <div class="topbar-right">
+        <span class="admin-badge">👨‍💼 Admin</span>
+        <a href="/" target="_blank" class="view-site-btn">🌐 Saytni Ko'rish</a>
+      </div>
+    </div>
+
+    <!-- PAGE: DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card gold">
+          <div class="stat-icon">👔</div>
+          <div class="stat-info">
+            <div class="stat-val" id="stat-products">—</div>
+            <div class="stat-lbl">Jami Mahsulotlar</div>
+          </div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-icon">📋</div>
+          <div class="stat-info">
+            <div class="stat-val" id="stat-orders">—</div>
+            <div class="stat-lbl">Jami Buyurtmalar</div>
+          </div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-icon">🛒</div>
+          <div class="stat-info">
+            <div class="stat-val" id="stat-cart">—</div>
+            <div class="stat-lbl">Savattagi Mahsulotlar</div>
+          </div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-icon">💰</div>
+          <div class="stat-info">
+            <div class="stat-val" id="stat-revenue">—</div>
+            <div class="stat-lbl">Jami Daromad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="dash-card">
+          <div class="dash-card-title">📦 Kategoriyalar</div>
+          <div class="category-bars" id="categoryBars"></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-title">🕐 So'nggi Buyurtmalar</div>
+          <div id="recentOrders"><div class="empty-msg">Buyurtmalar yo'q</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE: PRODUCTS -->
+    <div class="page" id="page-products">
+      <div class="page-header">
+        <h2>Mahsulotlar Boshqaruvi</h2>
+        <button class="add-btn" onclick="openProductModal()">+ Yangi Mahsulot</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table" id="productsTable">
+          <thead>
+            <tr>
+              <th>Rasm</th>
+              <th>Nomi</th>
+              <th>Kategoriya</th>
+              <th>Narx</th>
+              <th>Rang</th>
+              <th>Zaxira</th>
+              <th>Amallar</th>
+            </tr>
+          </thead>
+          <tbody id="productsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PAGE: ORDERS -->
+    <div class="page" id="page-orders">
+      <div class="page-header">
+        <h2>Buyurtmalar</h2>
+        <button class="refresh-btn" onclick="loadOrders()">🔄 Yangilash</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Ism</th>
+              <th>Telefon</th>
+              <th>Manzil</th>
+              <th>Summa</th>
+              <th>Holat</th>
+              <th>Vaqt</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PAGE: CART -->
+    <div class="page" id="page-cart">
+      <div class="page-header">
+        <h2>Joriy Savat</h2>
+        <button class="refresh-btn" onclick="loadCart()">🔄 Yangilash</button>
+      </div>
+      <div id="cartContent"><div class="empty-msg">Savat bo'sh</div></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-backdrop" id="productModal" style="display:none;">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modalTitle">Yangi Mahsulot</h3>
+      <button class="modal-x" onclick="closeProductModal()">✕</button>
+    </div>
+    <div class="modal-body-form">
+      <input type="hidden" id="editId">
+      <div class="form-row">
+        <div class="fg">
+          <label>Nomi (UZ)</label>
+          <input type="text" id="pNameUz" placeholder="Klassik Kostyum">
+        </div>
+        <div class="fg">
+          <label>Nomi (EN)</label>
+          <input type="text" id="pNameEn" placeholder="Classic Suit">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label>Tavsif (UZ)</label>
+          <textarea id="pDescUz" rows="2" placeholder="Tavsif..."></textarea>
+        </div>
+        <div class="fg">
+          <label>Tavsif (EN)</label>
+          <textarea id="pDescEn" rows="2" placeholder="Description..."></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label>Kategoriya</label>
+          <select id="pCategory">
+            <option value="twopiece">Ikki Qismli</option>
+            <option value="threepiece">Uch Qismli</option>
+            <option value="shirt">Ko'ylak</option>
+            <option value="sport">Sport Klass</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Narx (so'm)</label>
+          <input type="number" id="pPrice" placeholder="1490000">
+        </div>
+        <div class="fg">
+          <label>Zaxira (dona)</label>
+          <input type="number" id="pStock" placeholder="10">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label>Rasm URL</label>
+          <input type="text" id="pImage" placeholder="https://...">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label>O'lchamlar (vergul bilan: 46,48,50)</label>
+          <input type="text" id="pSizes" placeholder="46,48,50,52,54">
+        </div>
+        <div class="fg">
+          <label>Ranglar (vergul bilan: #000,#fff)</label>
+          <input type="text" id="pColors" placeholder="#1a1a1a,#2c2c54">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label>Badge (UZ)</label>
+          <input type="text" id="pBadgeUz" placeholder="Yangi">
+        </div>
+        <div class="fg">
+          <label>Badge (EN)</label>
+          <input type="text" id="pBadgeEn" placeholder="New">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeProductModal()">Bekor</button>
+        <button class="save-btn" onclick="saveProduct()">💾 Saqlash</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM -->
+<div class="modal-backdrop" id="deleteModal" style="display:none;">
+  <div class="modal-box small">
+    <div class="modal-head">
+      <h3>O'chirishni tasdiqlang</h3>
+      <button class="modal-x" onclick="closeDeleteModal()">✕</button>
+    </div>
+    <p style="color:#6b7280;margin:1rem 0;">Bu mahsulotni o'chirishni xohlaysizmi?</p>
+    <div class="modal-actions">
+      <button class="cancel-btn" onclick="closeDeleteModal()">Bekor</button>
+      <button class="delete-confirm-btn" id="confirmDeleteBtn">🗑️ O'chirish</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="a-toast" id="aToast"></div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>
