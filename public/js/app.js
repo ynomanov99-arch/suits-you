@@ -289,3 +289,19 @@ document.getElementById('submitOrder').addEventListener('click', async () => {
 // ----- Init -----
 fetchProducts();
 fetchCart();
+
+// ----- 3D Logo Tilt Effect -----
+const logoImg = document.getElementById('heroLogoImg');
+if (logoImg) {
+  document.addEventListener('mousemove', (e) => {
+    const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+    const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+    logoImg.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+  });
+  
+  // Sichqoncha ekrandan chiqqanda asl holatiga qaytish
+  document.addEventListener('mouseleave', () => {
+    logoImg.style.transform = `rotateY(0deg) rotateX(0deg)`;
+  });
+}
+
