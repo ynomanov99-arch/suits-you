@@ -13,18 +13,18 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
-    /* 3D Logo Animation */
-    .logo-3d {
+    /* 3D Logo SVG Animation */
+    .logo-3d-svg {
       display: inline-block;
-      max-width: 200px;
-      height: auto;
+      width: 200px;
+      height: 200px;
       filter: drop-shadow(0 15px 35px rgba(201, 168, 76, 0.4));
       transform: perspective(1200px) rotateY(-8deg) rotateX(3deg);
       transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.6s ease;
       animation: logoFloat 3s ease-in-out infinite;
     }
     
-    .logo-3d:hover {
+    .logo-3d-svg:hover {
       transform: perspective(1200px) rotateY(8deg) rotateX(-3deg) scale(1.05);
       filter: drop-shadow(0 25px 50px rgba(201, 168, 76, 0.6));
     }
@@ -50,8 +50,8 @@
     }
     
     .footer-logo {
-      max-width: 150px;
-      height: auto;
+      width: 150px;
+      height: 150px;
       display: inline-block;
       margin: 1rem 0;
       filter: drop-shadow(0 10px 25px rgba(201, 168, 76, 0.3));
@@ -69,7 +69,12 @@
 <!-- NAVBAR -->
 <nav class="navbar">
   <div style="display: flex; align-items: center;">
-    <img src="/logo.png" alt="SACO" class="nav-logo-icon">
+    <svg class="nav-logo-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- SACO Text -->
+      <text x="50" y="120" font-size="80" font-weight="bold" font-family="Arial" fill="#000">SACO</text>
+      <!-- Lightning Bolt -->
+      <polygon points="150,50 130,100 160,100 120,180 140,110 110,110" fill="#d4a844" stroke="#000" stroke-width="2"/>
+    </svg>
     <a href="#" class="nav-logo">SUITS <span>YOU</span></a>
   </div>
   <ul class="nav-links">
@@ -93,7 +98,27 @@
     
     <!-- 3D Logo Container -->
     <div class="hero-3d-logo">
-      <img src="/logo.png" alt="SACO Suits You" class="logo-3d" id="heroLogoImg">
+      <svg class="logo-3d-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background glow -->
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        
+        <!-- SACO Text -->
+        <text x="40" y="180" font-size="120" font-weight="bold" font-family="Arial, sans-serif" fill="#000" letter-spacing="8">SACO</text>
+        
+        <!-- Lightning Bolt (Gold) -->
+        <polygon points="220,80 190,150 230,150 180,260 210,170 170,170" fill="#d4a844" stroke="#000" stroke-width="3" filter="url(#glow)"/>
+        
+        <!-- "suits you!" text in red -->
+        <text x="60" y="220" font-size="28" font-style="italic" font-family="Brush Script MT, cursive" fill="#e63946" letter-spacing="2">suits you!</text>
+      </svg>
     </div>
 
     <h1>
@@ -188,7 +213,20 @@
 <section class="order-section" id="order">
   <div class="order-form-wrap">
     <div class="section-header">
-      <img src="/logo.png" alt="SACO" style="max-width: 120px; height: auto; margin: 0 auto 2rem; display: block; filter: drop-shadow(0 10px 25px rgba(201, 168, 76, 0.3)); transform: perspective(1000px) rotateY(-5deg);">
+      <svg class="footer-logo" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="margin: 1rem auto; display: block;">
+        <defs>
+          <filter id="glow2">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <text x="40" y="180" font-size="120" font-weight="bold" font-family="Arial, sans-serif" fill="#000" letter-spacing="8">SACO</text>
+        <polygon points="220,80 190,150 230,150 180,260 210,170 170,170" fill="#d4a844" stroke="#000" stroke-width="3" filter="url(#glow2)"/>
+        <text x="60" y="220" font-size="28" font-style="italic" font-family="Brush Script MT, cursive" fill="#e63946" letter-spacing="2">suits you!</text>
+      </svg>
       <div class="section-tag" data-uz="Buyurtma" data-en="Order">Buyurtma</div>
       <h2 class="section-title" data-uz="Buyurtma Bering" data-en="Place Your Order">Buyurtma Bering</h2>
     </div>
@@ -215,7 +253,20 @@
 
 <!-- FOOTER -->
 <footer>
-  <img src="/logo.png" alt="SACO" class="footer-logo">
+  <svg class="footer-logo" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="glow3">
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    <text x="40" y="180" font-size="120" font-weight="bold" font-family="Arial, sans-serif" fill="#000" letter-spacing="8">SACO</text>
+    <polygon points="220,80 190,150 230,150 180,260 210,170 170,170" fill="#d4a844" stroke="#000" stroke-width="3" filter="url(#glow3)"/>
+    <text x="60" y="220" font-size="28" font-style="italic" font-family="Brush Script MT, cursive" fill="#e63946" letter-spacing="2">suits you!</text>
+  </svg>
   <p><span class="gold">SACO SUITS YOU</span> © 2025 — Toshkent, O'zbekiston</p>
   <p style="margin-top:0.5rem;">+998 90 000 00 00 · saco.suits.you.uz</p>
 </footer>
